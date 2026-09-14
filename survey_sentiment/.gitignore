@@ -4,3 +4,7 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
+
+# Large raw Kaggle downloads (re-fetch with download_kaggle_sources.py)
+data/kaggle/
+data/kaggle_labeled_surveys_with_sentiment.csv

@@ -18,30 +18,60 @@ A small ML pipeline that turns free-text feedback into structured survey answers
 
 Given only a comment, the model fills the remaining survey fields.
 
-## Quick start
+## Kaggle training sources
+
+Trains on the two datasets attached to
+[`satyaprakashshukl/sentiment-analysis`](https://www.kaggle.com/code/satyaprakashshukl/sentiment-analysis):
+
+| Dataset | Role |
+|---|---|
+| `tejasurya/latest-elected-uk-prime-minister-rishi-sunak` | Tweet text corpus (`uk_pm.csv`) |
+| `sauravmaheshkar/huggingface-bert-variants` | Offline BERT weight mirror (~17GB, optional) |
+
+The kernel scores tweets with `nlptown/bert-base-multilingual-uncased-sentiment` (1–5 stars).
+This project labels the same tweet text with VADER mapped onto that 1–5 scale, then trains the survey filler.
+
+```bash
+# Requires Kaggle API credentials (KAGGLE_USERNAME + KAGGLE_KEY)
+pip install kaggle
+python3 survey_sentiment/download_kaggle_sources.py          # tweets only
+python3 survey_sentiment/download_kaggle_sources.py --pull-kernel
+python3 survey_sentiment/prepare_kaggle_data.py --sample-size 8000
+python3 survey_sentiment/demo.py --data survey_sentiment/data/kaggle_labeled_surveys.csv
+```
+
+Skip the BERT-variants download unless you need offline weights
+(`--with-bert-variants`). Prefer HuggingFace for the multilingual sentiment model.
+
+## Quick start (bundled sample)
 
 ```bash
 pip install -r survey_sentiment/requirements.txt
-python survey_sentiment/demo.py
+python3 survey_sentiment/demo.py
 ```
 
 Optional flags:
 
 ```bash
-python survey_sentiment/demo.py --classifier forest
-python survey_sentiment/demo.py --skip-train   # reuse saved model
+python3 survey_sentiment/demo.py --classifier forest
+python3 survey_sentiment/demo.py --skip-train   # reuse saved model
 ```
 
 ## Project layout
 
 ```text
 survey_sentiment/
-├── data/sample_feedback.csv   # labeled comments + survey answers
+├── data/
+│   ├── sample_feedback.csv              # small synthetic set
+│   └── kaggle_labeled_surveys.csv       # prepared from UK PM tweets
+├── kaggle_kernels/                      # pulled kernel notebook
 ├── src/
-│   ├── sentiment.py           # VADER feature extraction
-│   ├── train.py               # train / save multi-output model
-│   └── survey_filler.py       # inference + rule-based fallback
-├── models/                    # saved joblib bundle + demo CSV
+│   ├── sentiment.py                     # VADER feature extraction
+│   ├── train.py                         # train / save multi-output model
+│   └── survey_filler.py                 # inference + rule-based fallback
+├── models/                              # saved joblib bundle + demo CSV
+├── download_kaggle_sources.py
+├── prepare_kaggle_data.py
 ├── demo.py
 └── requirements.txt
 ```
@@ -62,6 +92,7 @@ Typical filled answers:
 
 ## Notes
 
-- Sample data is synthetic and educational.
-- Hold-out metrics are printed after training; with only ~60 rows they will vary.
-- `SurveyFiller.rule_based_fill()` maps VADER compound score to Likert values without ML, useful as a baseline.
+- Hold-out metrics are printed after training.
+- On the Kaggle-prepared 8k-row set, logistic regression reaches ~0.94 accuracy on Likert fields and ~0.99 on recommend.
+- `SurveyFiller.rule_based_fill()` maps VADER compound → Likert values without ML (baseline).
+- Raw Kaggle downloads under `data/kaggle/` are gitignored (re-fetch with the download script).
