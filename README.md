@@ -228,6 +228,17 @@ This means the final threshold should ultimately be chosen using **expected busi
 - Scikit-learn
 - XGBoost
 
+## Survey Sentiment Auto-Fill
+
+A companion module under `survey_sentiment/` fills structured survey answers from free-text comments using VADER sentiment features + a multi-output classifier.
+
+```bash
+pip install -r survey_sentiment/requirements.txt
+python3 survey_sentiment/demo.py
+```
+
+See [`survey_sentiment/README.md`](survey_sentiment/README.md) for details.
+
 ## Project Structure
 
 A possible expanded project structure is:
@@ -237,6 +248,12 @@ marketing-research-ml/
 │
 ├── notebooks/
 │   └── Marketing_Research_ML.ipynb
+│
+├── survey_sentiment/          # sentiment → survey answer filler
+│   ├── data/
+│   ├── src/
+│   ├── models/
+│   └── demo.py
 │
 ├── data/
 │   ├── raw/

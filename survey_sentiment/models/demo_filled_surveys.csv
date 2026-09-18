@@ -1,0 +1,5 @@
+comment,sentiment_label,compound,overall_satisfaction,recommend,product_quality,repurchase_intent,support_rating
+I am so happy with this purchase — amazing quality and fast support!,positive,0.9106,5,yes,5,5,5
+This was awful. Broken on arrival and nobody helped me.,negative,-0.7269,1,no,1,1,1
+The product arrived on time and works as described. Average overall.,neutral,0.0,3,yes,3,3,3
+Would definitely recommend. Great value and solid build.,positive,0.9062,5,yes,5,5,5
