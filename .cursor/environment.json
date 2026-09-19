@@ -1,0 +1,5 @@
+{
+  "name": "PGIT Marketing ML & Survey Sentiment",
+  "user": "ubuntu",
+  "install": "bash scripts/cloud-agent-install.sh"
+}
