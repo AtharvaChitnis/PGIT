@@ -1,0 +1,33 @@
+{
+  "name": "voterx",
+  "version": "1.0.0",
+  "description": "THIS IS AN APP FOR MY PG, I DON'T KNOW WHAT I AM BUILDING, BUT I HAVE STARTED BUILDING FROM SCRATCH SO THAT I UNDERSTAND WHATEVER I AM MAKING INSTEAD OF AI SLOP",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "build": "node --check app.js && node --check cache.js",
+    "start": "node app.js",
+    "dev": "node --watch app.js",
+    "test": "node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "PGIT"
+  },
+  "keywords": [
+    "application"
+  ],
+  "author": "AtharvaChitnis",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "@keyv/redis": "^5.1.6",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "keyv": "^5.6.0",
+    "redis": "^6.2.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.10"
+  }
+}

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: voterx
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: voterx
+
+  template:
+    metadata:
+      labels:
+        app: voterx
+
+    spec:
+      containers:
+        - name: voterx
+          image: voterx:1.0.0
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 3000
+
+          env:
+            - name: REDIS_URL
+              value: 'redis://redis:6379'
