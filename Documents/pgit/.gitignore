@@ -1,0 +1,6 @@
+# local data / generated artifacts (anchored to repo root)
+/data/raw/
+/models/
+/reports/
+__pycache__/
+*.pyc
